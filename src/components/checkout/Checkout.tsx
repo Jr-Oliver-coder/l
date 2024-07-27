@@ -150,7 +150,7 @@ export default function Checkout() {
               display: "flex",
               flexDirection: "column",
               flexGrow: 1,
-              width: "100%",
+              width: "99%",
               maxWidth: 500,
             }}
           >
