@@ -24,7 +24,7 @@ const Header: React.FC = () => {
                 width={100}
                 height={90}
                 objectFit="contain"
-                src={"/assets/logo.jpg"}
+                src={"/assets/logo.png"}
               />
             </Button>
           </Link>
