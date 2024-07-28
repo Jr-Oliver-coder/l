@@ -32,6 +32,8 @@ import Review from "./Review";
 import ToggleColorMode from "./ToggleColorMode";
 import SitemarkIcon from "./SitemarkIcon";
 import Image from "next/image";
+import { useParams } from "next/navigation";
+import { products } from "../home/Home";
 
 interface ToggleCustomThemeProps {
   showCustomTheme: Boolean;
@@ -42,42 +44,9 @@ function ToggleCustomTheme({
   showCustomTheme,
   toggleCustomTheme,
 }: ToggleCustomThemeProps) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100dvw",
-        position: "fixed",
-        bottom: 24,
-      }}
-    >
-      <ToggleButtonGroup
-        color="primary"
-        exclusive
-        value={showCustomTheme}
-        onChange={toggleCustomTheme}
-        aria-label="Toggle design language"
-        sx={{
-          backgroundColor: "background.default",
-          "& .Mui-selected": {
-            pointerEvents: "none",
-          },
-        }}
-      >
-        <ToggleButton value>
-          <AutoAwesomeRoundedIcon sx={{ fontSize: "20px", mr: 1 }} />
-          Custom theme
-        </ToggleButton>
-        <ToggleButton data-screenshot="toggle-default-theme" value={false}>
-          Material Design 2
-        </ToggleButton>
-      </ToggleButtonGroup>
-    </Box>
-  );
+  return null;
 }
-const steps = ["Shipping address", "Payment details", "Review your order"];
+const steps = ["Endereço", "Pagamento", "Revião"];
 function getStepContent(step: number) {
   switch (step) {
     case 0:
@@ -108,8 +77,12 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+  const { productId } = useParams();
+  const product = React.useMemo(() => {
+    return products.find((p) => p.id.toString() === productId);
+  }, [productId]);
   return (
-    <ThemeProvider theme={showCustomTheme ? checkoutTheme : defaultTheme}>
+    <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <Grid container sx={{ height: { xs: "100%", sm: "100dvh" } }}>
         <Grid
@@ -133,17 +106,19 @@ export default function Checkout() {
             <Button
               startIcon={<ArrowBackRoundedIcon />}
               component="a"
-              href="/material-ui/getting-started/templates/"
+              href="/"
               sx={{ ml: "-8px" }}
             >
-              Voltar&nbsp;
-              <Image
-                alt="logo"
-                width={80}
-                height={60}
-                src={"/assets/casas-bahia.jpg"}
-              />
+              Voltar
             </Button>
+          </Box>
+          <Box>
+            <Image
+              alt="logo"
+              width={200}
+              height={200}
+              src={product?.image ?? ""}
+            />
           </Box>
           <Box
             sx={{
@@ -154,7 +129,8 @@ export default function Checkout() {
               maxWidth: 500,
             }}
           >
-            <Info totalPrice={activeStep >= 2 ? "$144.97" : "$134.98"} />
+            <Box>{product?.name}</Box>
+            <Info totalPrice={product?.price.toString() ?? ""} />
           </Box>
         </Grid>
         <Grid
@@ -197,7 +173,7 @@ export default function Checkout() {
                 href="/material-ui/getting-started/templates/"
                 sx={{ alignSelf: "start" }}
               >
-                Back to
+                Voltar
                 <SitemarkIcon />
               </Button>
               <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
@@ -245,7 +221,7 @@ export default function Checkout() {
             >
               <div>
                 <Typography variant="subtitle2" gutterBottom>
-                  Selected products
+                  Produtos
                 </Typography>
                 <Typography variant="body1">
                   {activeStep >= 2 ? "$144.97" : "$134.98"}
@@ -295,17 +271,17 @@ export default function Checkout() {
             {activeStep === steps.length ? (
               <Stack spacing={2} useFlexGap>
                 <Typography variant="h1">📦</Typography>
-                <Typography variant="h5">Thank you for your order!</Typography>
+                <Typography variant="h5">Obrigado!</Typography>
                 <Typography variant="body1" sx={{ color: "text.secondary" }}>
                   Your order number is
-                  <strong>&nbsp;#140396</strong>. We have emailed your order
-                  confirmation and will update you once its shipped.
+                  <strong>&nbsp;#140396</strong>.Mandamos um e-mail com os dados
+                  da entrega.
                 </Typography>
                 <Button
                   variant="contained"
                   sx={{ alignSelf: "start", width: { xs: "100%", sm: "auto" } }}
                 >
-                  Go to my orders
+                  Ir para o inicio
                 </Button>
               </Stack>
             ) : (
@@ -335,7 +311,7 @@ export default function Checkout() {
                       variant="text"
                       sx={{ display: { xs: "none", sm: "flex" } }}
                     >
-                      Previous
+                      Anterios
                     </Button>
                   )}
                   {activeStep !== 0 && (
@@ -346,7 +322,7 @@ export default function Checkout() {
                       fullWidth
                       sx={{ display: { xs: "flex", sm: "none" } }}
                     >
-                      Previous
+                      Anterios
                     </Button>
                   )}
                   <Button
@@ -355,7 +331,7 @@ export default function Checkout() {
                     onClick={handleNext}
                     sx={{ width: { xs: "100%", sm: "fit-content" } }}
                   >
-                    {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                    {activeStep === steps.length - 1 ? "Comprar" : "Próximo"}
                   </Button>
                 </Box>
               </React.Fragment>

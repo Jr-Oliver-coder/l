@@ -18,20 +18,20 @@ export default function AddressForm() {
     <Grid container spacing={3}>
       <FormGrid item xs={12} md={6}>
         <FormLabel htmlFor="first-name" required>
-          First name
+          Nome
         </FormLabel>
         <OutlinedInput
           id="first-name"
           name="first-name"
           type="name"
           placeholder="John"
-          autoComplete="first name"
+          autoComplete="name"
           required
         />
       </FormGrid>
       <FormGrid item xs={12} md={6}>
         <FormLabel htmlFor="last-name" required>
-          Last name
+          Sobrenome
         </FormLabel>
         <OutlinedInput
           id="last-name"
@@ -44,84 +44,78 @@ export default function AddressForm() {
       </FormGrid>
       <FormGrid item xs={12}>
         <FormLabel htmlFor="address1" required>
-          Address line 1
+          Endereço
         </FormLabel>
         <OutlinedInput
           id="address1"
           name="address1"
           type="address1"
-          placeholder="Street name and number"
+          placeholder="Rua e número"
           autoComplete="shipping address-line1"
           required
         />
       </FormGrid>
       <FormGrid item xs={12}>
-        <FormLabel htmlFor="address2">Address line 2</FormLabel>
+        <FormLabel htmlFor="address2">Complemento</FormLabel>
         <OutlinedInput
           id="address2"
           name="address2"
           type="address2"
-          placeholder="Apartment, suite, unit, etc. (optional)"
+          placeholder="Apartmento, sala, etc"
           autoComplete="shipping address-line2"
           required
         />
       </FormGrid>
       <FormGrid item xs={6}>
         <FormLabel htmlFor="city" required>
-          City
+          Cidade
         </FormLabel>
         <OutlinedInput
           id="city"
           name="city"
           type="city"
-          placeholder="New York"
+          placeholder="São Paulo"
           autoComplete="City"
           required
         />
       </FormGrid>
       <FormGrid item xs={6}>
         <FormLabel htmlFor="state" required>
-          State
+          Estado
         </FormLabel>
         <OutlinedInput
           id="state"
           name="state"
           type="state"
-          placeholder="NY"
+          placeholder="SP"
           autoComplete="State"
           required
         />
       </FormGrid>
       <FormGrid item xs={6}>
         <FormLabel htmlFor="zip" required>
-          Zip / Postal code
+          CEP
         </FormLabel>
         <OutlinedInput
           id="zip"
           name="zip"
           type="zip"
-          placeholder="12345"
+          placeholder="00000-000"
           autoComplete="shipping postal-code"
           required
         />
       </FormGrid>
       <FormGrid item xs={6}>
         <FormLabel htmlFor="country" required>
-          Country
+          País
         </FormLabel>
         <OutlinedInput
           id="country"
           name="country"
           type="country"
-          placeholder="United States"
+          placeholder="Brasil"
           autoComplete="shipping country"
           required
-        />
-      </FormGrid>
-      <FormGrid item xs={12}>
-        <FormControlLabel
-          control={<Checkbox name="saveAddress" value="yes" />}
-          label="Use this address for payment details"
         />
       </FormGrid>
     </Grid>
