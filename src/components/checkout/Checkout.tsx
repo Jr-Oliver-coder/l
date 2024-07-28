@@ -46,7 +46,7 @@ function ToggleCustomTheme({
 }: ToggleCustomThemeProps) {
   return null;
 }
-const steps = ["Endereço", "Pagamento", "Revião"];
+const steps = ["Endereço", "Pagamento", "Revisão"];
 function getStepContent(step: number) {
   switch (step) {
     case 0:
