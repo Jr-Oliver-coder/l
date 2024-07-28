@@ -114,7 +114,7 @@ export default function AddressForm() {
           name="country"
           type="country"
           placeholder="Brasil"
-          autoComplete="shipping country"
+          autoComplete="shipping country entrega"
           required
         />
       </FormGrid>
