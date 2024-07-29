@@ -21,10 +21,22 @@ interface Product {
 
 export const products: Product[] = [
   {
-    id: 777,
+    id: 756,
+    name: "Mi 11 Midnight Gray Xiaomi, com Tela de 6,81', 5G, 256GB e Câmera Tripla de 108MP + 13MP + 5MP - CX318CIN",
+    price: 8999,
+    image: "/assets/xiaomi.jpeg",
+  },
+  {
+    id: 646,
+    name: "iPhone 15 Apple (256GB) Preto, Tela de 6,1', 5G e Câmera de 48 MP",
+    price: 5699,
+    image: "/assets/iphone.jpeg",
+  },
+  {
+    id: 346,
     name: "X.iaomi H.aylou Relógio Smartwatch Rs3 Gps Tela 1.2 pol. Bluetooth 5.0 Modos Esportivos Classificação 5 Atm Resistência à Água Bateria até 12 dias Compatível com Android e Ios/No Brasil",
     price: 245.9,
-    image: "assets/rs3.jpg",
+    image: "/assets/rs3.jpg",
   },
   { id: 356, name: "KZ B", price: 149.99, image: "/assets/kz3.webp" },
   {
