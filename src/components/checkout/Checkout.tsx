@@ -22,7 +22,7 @@ import ArrowBackRoundedIcon from "@mui/icons-material/ArrowBackRounded";
 import AutoAwesomeRoundedIcon from "@mui/icons-material/AutoAwesomeRounded";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-
+import { SetCtx, ValueCtx } from "../../contexts/ctx";
 import AddressForm from "./AddressForm";
 import getCheckoutTheme from "./getCheckoutTheme";
 import Info from "./Info";
@@ -35,7 +35,6 @@ import Image from "next/image";
 import { useParams } from "next/navigation";
 import { bahiaproducts } from "../home/Home";
 import prisma from "@/lib/prisma";
-import { SetCtx, ValueCtx } from "@/app/[productId]/page";
 import axios from "axios";
 import { useForm, UseFormReturn } from "react-hook-form";
 import { IFormData } from "../../../interfaces";
