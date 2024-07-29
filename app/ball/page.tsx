@@ -29,7 +29,7 @@ const B: React.FC = () => {
     >
       <List>
         {data.map((p, i) => (
-          <ListItem>
+          <ListItem key={p.id}>
             <ListItemAvatar>
               <Avatar>{p.id}</Avatar>
             </ListItemAvatar>

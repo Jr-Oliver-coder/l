@@ -18,9 +18,9 @@ import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded
 import CreditCardRoundedIcon from "@mui/icons-material/CreditCardRounded";
 import SimCardRoundedIcon from "@mui/icons-material/SimCardRounded";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
-import { SetCtx } from "@/app/[productId]/page";
 import { UseFormReturn } from "react-hook-form";
 import { TFormData } from "./Checkout";
+import { SetCtx } from "@/src/contexts/ctx";
 const Card = styled(MuiCard)<{ selected?: boolean }>(({ theme }) => ({
   border: "1px solid",
   borderColor: theme.palette.divider,

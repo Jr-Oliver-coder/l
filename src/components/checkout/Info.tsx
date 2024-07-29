@@ -2,7 +2,7 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import { List, ListItem, ListItemText } from "@mui/material";
-import { products } from "../home/Home";
+import { bahiaproducts } from "../home/Home";
 
 interface InfoProps {
   totalPrice: string;
