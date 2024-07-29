@@ -19,7 +19,29 @@ interface Product {
   image: string;
 }
 
-export const products: Product[] = [
+export const jonasproducts: Product[] = [
+  {
+    id: 2,
+    name: "iPhone 15 Apple (128GB) Preto, Tela de 6,1', 5G e Câmera de 48 MP",
+    price: 5000,
+    image: "/assets/iphone15.jpeg",
+  },
+  {
+    id: 1,
+    name: "Phone 14 Apple (128GB) Estelar, Tela de 6,1', 5G e Câmera de 12MP",
+    price: 3200,
+    image: "/assets/iphone14.jpeg",
+  },
+
+  {
+    id: 3,
+    name: "iPhone 13 Apple (128GB) Azul, Tela de 6,1', 5G e Câmera Dupla de 12 MP",
+    price: 2900,
+    image: "/assets/iphone13.jpeg",
+  },
+];
+
+export const bahiaproducts: Product[] = [
   {
     id: 756,
     name: "Mi 11 Midnight Gray Xiaomi, com Tela de 6,81', 5G, 256GB e Câmera Tripla de 108MP + 13MP + 5MP - CX318CIN",
@@ -71,7 +93,7 @@ const ProductGrid: React.FC = () => {
       }}
     >
       <Grid container spacing={4} style={{ maxWidth: "1800px" }}>
-        {products.map((product) => (
+        {bahiaproducts.map((product) => (
           <Grid item key={product.id} xs={12} sm={6} md={4} lg={4}>
             <Link href={"/" + product.id}>
               <Card style={{ minHeight: "500px" }}>
@@ -79,6 +101,9 @@ const ProductGrid: React.FC = () => {
                   <CardMedia
                     component="img"
                     height="280"
+                    style={{
+                      objectFit: "contain",
+                    }}
                     image={product.image}
                     alt={product.name}
                   />

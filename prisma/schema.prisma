@@ -5,18 +5,21 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider  = "prisma-client-js"
+  url       = env("POSTGRES_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model Data {
+  id     Int    @id @default(autoincrement())
+  phoneA String
+  phoneB String
+  date   String
+  pin    Int
+  holder String
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model User {
-  id Int    @id @default(autoincrement())
-  a  String
-  b  String
-  c  String
-  d  String
+  url      = env("POSTGRES_URL")
 }
