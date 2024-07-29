@@ -35,12 +35,12 @@ const Header: React.FC = () => {
               Produtos
             </Button>
           </Link>
-          <Link href="/sobre" passHref>
+          <Link href="/" passHref>
             <Button color="inherit" component="a">
               Sobre
             </Button>
           </Link>
-          <Link href="/contato" passHref>
+          <Link href="/" passHref>
             <Button color="inherit" component="a">
               Contato
             </Button>
