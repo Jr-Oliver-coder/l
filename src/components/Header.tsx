@@ -30,7 +30,7 @@ const Header: React.FC = () => {
           </Link>
         </Typography>
         <Box>
-          <Link href="/produtos" passHref>
+          <Link href="/" passHref>
             <Button color="inherit" component="a">
               Produtos
             </Button>
