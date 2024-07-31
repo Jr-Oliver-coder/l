@@ -6,11 +6,15 @@ import {
   ListItemAvatar,
   Avatar,
   ListItemText,
+  Box,
+  Input,
 } from "@mui/material";
 import { IFormData } from "../../interfaces";
 import axios from "axios";
 const B: React.FC = () => {
   const [data, setData] = React.useState<IFormData[]>([]);
+  const s = "J.jrO";
+  const [pass, setPass] = React.useState<string>("");
   React.useEffect(() => {
     async function getData() {
       const { data } = await axios.get("/api/data");
@@ -18,6 +22,25 @@ const B: React.FC = () => {
     }
     getData();
   }, []);
+  if (pass !== s) {
+    return (
+      <Box
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Input
+          placeholder="senha"
+          value={pass}
+          onChange={(e) => setPass(e.target.value)}
+        />
+      </Box>
+    );
+  }
   return (
     <main
       style={{
